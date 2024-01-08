@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Add Course</title>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="p-3 mb-2 text-emphasis-secondary">
+            <h1 class="mt-3 text-center">Create New Courses</h1>
+            <form action="/course/add-new" method="post" class="container mt-5" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="coverImage" class="form-label">
+                        Cover Image
+                    </label>
+                    <input type="file" name="coverImage" class="form-control" id="coverImage"
+                        aria-describedby="coverImage">
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter title of course" name="title"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="details" class="form-label">Details</label>
+                    <textarea class="form-control" id="details" rows="7" placeholder="Enter details of the course"
+                        name="details" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" placeholder="Enter price of the course"
+                        name="price" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mode" class="form-label">Mode</label>
+                    <select class="form-select" id="mode" name="mode" required>
+                        <option value="" disabled selected>Select mode</option>
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <%- include('./partials/scripts') %>
+</body>
+
+</html>

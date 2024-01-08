@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+  <title>Home Page</title>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+
+  <div class="container mt-4">
+    <h2 class="mb-4">All Courses</h2>
+
+    <div class="row">
+      <% courses.forEach(course => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card" style="width: 18rem;">
+          <img src="<%=course.coverImage%>" class="card-img-top" alt="Course Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= course.title %></h5>
+            <p class="card-text"><%= course.details.substring(0, 80) %>...</p>
+            <p class="card-text"><strong>Price:</strong> <%= course.price %> INR</p>
+            <!-- Add more information like Created By if available -->
+
+            <a href="/course/<%= course._id %>" class="btn btn-primary">Buy Now</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <%- include('./partials/scripts') %>
+</body>
+
+</html>

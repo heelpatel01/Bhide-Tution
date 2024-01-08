@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Course Details</title>
+        <style>
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            .course-info {
+                width: 60%;
+                padding-right: 20px;
+            }
+
+            .course-image {
+                width: 35%;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .buy-button {
+                margin-top: 10px;
+            }
+
+            .description p {
+                margin-bottom: 10px;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="container">
+            <div class="course-info">
+                <h1>
+                    <%= course.title %>
+                </h1>
+                <div class="description">
+                    <% course.details.split('\n').forEach(line => { %>
+                    <p><%= line %></p>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="course-image">
+                <img src="/<%= course.coverImage %>" alt="courseImage">
+                <h5 class="mt-2">
+                    <%= course.price %> RS.
+                </h5>
+                <button class="btn btn-primary buy-button">Buy This Course</button>
+            </div>
+        </div>
+
+        <%- include('./partials/scripts') %>
+</body>
+
+</html>
