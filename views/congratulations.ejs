@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+    <title>Congratulations!</title>
+    <!-- Add any additional styling or scripts as needed -->
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>You have successfully enrolled in <%= course.title %>.</p>
+        <!-- Add any additional information or links as needed -->
+    </div>
+    <%- include('./partials/scripts') %>
+
+    <script>
+        // Redirect to the course details page after 3000 milliseconds (3 seconds)
+        setTimeout(function () {
+            window.location.href = "/course/<%= course._id %>";
+        }, 3000);
+    </script>
+</body>
+
+</html>

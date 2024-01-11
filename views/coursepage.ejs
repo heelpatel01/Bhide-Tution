@@ -5,11 +5,22 @@
     <%- include('./partials/head') %>
         <title>Course Details</title>
         <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+
             .container {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin-top: 20px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 8px;
             }
 
             .course-info {
@@ -24,41 +35,139 @@
             img {
                 max-width: 100%;
                 height: auto;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
             .buy-button {
                 margin-top: 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .buy-button:hover {
+                background-color: #0056b3;
             }
 
             .description p {
                 margin-bottom: 10px;
+                line-height: 1.6;
+                color: #333;
+            }
+
+            .instructor-info {
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                color: #777;
+            }
+
+            .instructor-info img {
+                margin-right: 10px;
+                border-radius: 50%;
+            }
+
+            .comments-section {
+                margin-top: 20px;
+            }
+
+            .comment {
+                margin-bottom: 20px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+            }
+
+            .comment img {
+                margin-right: 10px;
+                border-radius: 50%;
+            }
+
+            .comment pre {
+                margin: 0;
             }
         </style>
 </head>
 
 <body>
     <%- include('./partials/nav') %>
+    <div class="dropdown mt-3 container">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="enrolledStudentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Enrolled Students (<%= course.enrolledStudents.length %>)
+        </button>
+        <div class="dropdown-menu w-100 p-3" aria-labelledby="enrolledStudentsDropdown">
+            <ul>
+                <% course.enrolledStudents.forEach(student => { %>
+                    <li><%= student.fullName %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+
         <div class="container">
             <div class="course-info">
-                <h1>
-                    <%= course.title %>
-                </h1>
+                <h1><%= course.title %></h1>
                 <div class="description">
-                    <% course.details.split('\n').forEach(line => { %>
-                    <p><%= line %></p>
-                    <% }) %>
+                    <% course.details.split('\n').forEach(line=> { %>
+                        <p><%= line %></p>
+                        <% }) %>
                 </div>
             </div>
-            <div class="course-image">
-                <img src="/<%= course.coverImage %>" alt="courseImage">
-                <h5 class="mt-2">
-                    <%= course.price %> RS.
-                </h5>
-                <button class="btn btn-primary buy-button">Buy This Course</button>
-            </div>
-        </div>
 
+            <div class="course-image">
+                <div class="instructor-info mb-3" style="border: #aad6e0 solid; border-radius: 10px;" >
+                    <img src="<%= course.instructor.profileImageURL %>" alt="Instructor Image" width="40px">
+                    <span><%= course.instructor.fullName %></span>
+                </div>
+                <img src="/<%= course.coverImage %>" alt="courseImage" class="container">
+                <% if (user && user.enrolledCourses.some(course => course._id.toString() === course._id.toString())) { %>
+                    <a href="/course/<%= course._id %>" class="btn btn-success buy-button">Go to Course</a>
+                <% } else { %>
+                    <form action="/course/purchase/<%= course._id %>" method="post">
+                        <button type="submit" class="btn btn-primary buy-button">Buy This Course</button>
+                    </form>
+                <% } %>                
+                <h5 class="mt-2"><%= course.price %> RS.</h5>
+            </div>
+            
+        </div>
+        <div class="mt-3 comments-section">
+            <h1>Comments (<%= comments.length %>) </h1>
+            <% if (locals.user) { %>
+                <form action="/course/comments/<%= locals.course._id %>" method="post">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Add Your Comments Here..." name="content" aria-describedby="emailHelp">
+                        <button type="submit" class="btn btn-primary buy-button">Add Comment</button>
+                    </div>
+                </form>
+                <% } %>
+            <% comments.forEach(comment=> { %>
+                <div class="content comment">
+                    <img src="<%= comment.createdBy.profileImageURL %>" alt="Instructor Image" width="40px">
+                    <span><%= comment.createdBy.fullName %>:</span>
+                    <pre><%= comment.content %></pre>
+                </div>
+                
+                <% }) %>
+        </div>
+        
         <%- include('./partials/scripts') %>
+        <!-- Add this section to display enrolled students -->
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

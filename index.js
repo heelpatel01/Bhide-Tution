@@ -12,36 +12,37 @@ const { checkForAuthentication } = require("./middlewares/authentication");
 const PORT = 203;
 
 mongoose
-  .connect("mongodb://localhost:27017/bhide")
-  .then((e) => console.log("DB Connected"))
-  .catch((e) => console.log("DB Error: ", e));
+ .connect("mongodb://localhost:27017/bhide")
+ .then((e) => console.log("DB Connected"))
+ .catch((e) => console.log("DB Error: ", e));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.json());
 app.use(checkForAuthentication("token"));
 app.use(express.static(path.resolve("./public")));
 
 app.get("/", (req, res) => {
-  res.render("home", {
-    user: req.user,
-  });
+ res.render("home", {
+  user: req.user,
+ });
 });
 
 app.get("/courses", async (req, res) => {
-  const allCourses = await Course.find({}).sort("createdAt");
+ const allCourses = await Course.find({}).sort("createdAt");
 
-  res.render("courses", {
-    user: req.user,
-    courses: allCourses,
-  });
+ res.render("courses", {
+  user: req.user,
+  courses: allCourses,
+ });
 });
 
 app.use("/user", userRoute);
 app.use("/course", courseRoute);
 
 app.listen(PORT, () => {
-  console.log("Server Started", PORT);
+ console.log("Server Started", PORT);
 });

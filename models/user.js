@@ -28,6 +28,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    enrolledCourses: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
+    }],
+
   },
   { timestamps: true }
 );
