@@ -25,9 +25,13 @@ app.use(express.json());
 app.use(checkForAuthentication("token"));
 app.use(express.static(path.resolve("./public")));
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+    
+ const allCourses = await Course.find({}).sort("createdAt");
+
  res.render("home", {
   user: req.user,
+  courses: allCourses,
  });
 });
 

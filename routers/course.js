@@ -30,16 +30,18 @@ router.get("/add-new", (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
- const course = await Course.findById(req.params.id).populate("instructor").populate('enrolledStudents', 'fullName')
+ const course = await Course.findById(req.params.id)
+  .populate("instructor")
+  .populate("enrolledStudents", "fullName");
  const comments = await Comment.find({ courseId: req.params.id }).populate(
   "createdBy"
  );
- const user = await User.findById(req.user._id).populate("enrolledCourses");
+ const user = await User.findById(req.user?._id)?.populate("enrolledCourses");
 
  //   console.log("comments", comments);
  //  console.log(req.params.id, "Stay Tunrd,: ", req);
  //  console.log(req)
- console.log(user)
+ console.log(user);
  //  const user = await User.findById(userId).populate('enrolledCourses');
  console.log("User Enrolled Courses:", user.enrolledCourses);
 
@@ -49,10 +51,6 @@ router.get("/:id", async (req, res) => {
   comments,
  });
 });
-
-// router.get("/purchase/:courseId",(req,res)=>{
-//     const course= Course.updateOne(req.params.id,req.user.)
-// })
 
 router.post("/purchase/:courseId", async (req, res) => {
  const courseId = req.params.courseId;
@@ -71,7 +69,7 @@ router.post("/purchase/:courseId", async (req, res) => {
  res.render("congratulations", { user: req.user, course });
 });
 
-router.get("/comments/:courseId", async (req, res) => {
+router.post("/comments/:courseId", async (req, res) => {
  await Comment.create({
   content: req.body.content,
   createdBy: req.user._id,

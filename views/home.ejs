@@ -3,16 +3,104 @@
 
 <head>
     <%- include('./partials/head') %>
-        <title>Home Page</title>
+    <title>Bhide Tuition Classes - Home</title>
+    <!-- Add any additional styles or meta tags here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .jumbotron {
+            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+                url('https://i.ytimg.com/vi/iFrl7aDyxhg/maxresdefault.jpg') center/cover;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .jumbotron h1,
+        .jumbotron p {
+            color: #333;
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .featured-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .description {
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
     <%- include('./partials/nav') %>
-        
-       
 
-            <%- include('./partials/scripts') %>
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Bhide Tuition Classes</h1>
+            <p class="lead">Explore a variety of courses and enhance your skills! #no1itClassInMumbai</p>
+        </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mb-4">All Courses</h2>
+                <div class="row">
+                    <% courses.forEach(course => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="<%=course.coverImage%>" class="card-img-top" alt="Course Image">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= course.title %></h5>
+                                <p class="card-text"><%= course.details.substring(0, 80) %>...</p>
+                                <p class="card-text"><strong>Price:</strong> <%= course.price %> INR</p>
+                                <a href="/course/<%= course._id %>" class="btn btn-primary">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- You can add content on the right side if needed -->
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+    <!-- Add any additional scripts or JavaScript files here -->
 </body>
 
 </html>

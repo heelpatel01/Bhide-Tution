@@ -33,6 +33,13 @@ const courseSchema = new Schema(
   mode: {
    enum: ["online", "offline"],
   },
+  content: [
+   {
+    sectionTitle: { type: String, required: true },
+    videos: [{ title: String, url: String }],
+    readingMaterials: [{ title: String, url: String }],
+   },
+  ],
  },
  { timestamps: true }
 );
