@@ -3,32 +3,31 @@
 
 <head>
     <%- include('./partials/head') %>
-        <title>Signup</title>
+        <title>Signup Page</title>
 </head>
 
-<body class="bg-dark text-light"> <!-- Apply dark background to the entire body -->
+<body>
     <%- include('./partials/nav') %>
 
-        <div class="container">
-            <form class="bg-dark p-5 rounded" action="/user/signup" method="post">
+        <div class="container mt-5">
+            <form action="/user/signup" method="post">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        name="fullName">
+                    <input type="text" class="form-control" id="fullName" aria-describedby="fullName" name="fullName">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        name="email">
+                    <input type="text" class="form-control" id="email" aria-describedby="email" name="email">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    <input type="password" class="form-control" id="password" name="password">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary bg-dark border">Submit</button>
             </form>
         </div>
-        <%- include('./partials/script') %>
+
+        <%- include('./partials/scripts') %>
 </body>
 
 </html>

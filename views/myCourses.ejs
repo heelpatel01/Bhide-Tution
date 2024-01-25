@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Bhide Tuition Classes - My Courses</title>
+
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <%= JSON.stringify(locals.course.enrolledCourses) %>
+
+
+
+            <%- include('./partials/scripts') %>
+                <!-- Add any additional scripts or JavaScript files here -->
+</body>
+
+</html>
